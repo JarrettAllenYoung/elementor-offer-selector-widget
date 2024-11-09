@@ -117,8 +117,25 @@ class Offer_Selector extends \Elementor\Widget_Base {
                 'delete_button' => true, // Allows variations to be deleted
             ]
         );
-                        
-        
+
+
+        $this->add_control(
+            'default_selected_variation',
+            [
+                'label' => __('Default Selected Variation', 'plugin-name'),
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'options' => [
+                    'none' => __('None', 'plugin-name'),
+                    '0' => __('Variation 1', 'plugin-name'),
+                    '1' => __('Variation 2', 'plugin-name'),
+                    '2' => __('Variation 3', 'plugin-name'),
+                    // Add more options dynamically if needed
+                ],
+                'default' => 'none',
+                'description' => __('Select which variation should be selected by default when the page loads.', 'plugin-name'),
+            ]
+        );
+
 
         $this->end_controls_section(); // Close offer_selector_settings section
 
@@ -1349,7 +1366,7 @@ $this->end_controls_section();
     
         // Loop through each product and display
         foreach ($settings['products'] as $index => $product) {
-            $checked = $index === 1 ? 'checked' : ''; // Set the second product as checked by default
+            $checked = ($settings['default_selected_variation'] !== 'none' && $index == $settings['default_selected_variation']) ? 'checked' : ''; // Select which variation is checked
             echo '<div class="product-option">';
             echo '<input type="radio" id="product_' . $index . '" name="product_option" ' . $checked . ' ';
             echo 'data-regular-price="' . esc_attr($product['regular_price']) . '" ';
@@ -1401,12 +1418,26 @@ $this->end_controls_section();
         const radioButtons = document.querySelectorAll('.ghm-offer-selector input[name="product_option"]');
         const productOptions = document.querySelectorAll('.product-option');
         const cartPriceElement = document.querySelector('.ghm-offer-selector .cart-price');
+        const addToCartButton = document.querySelector('.ghm-offer-selector .add-to-cart');
+        const loggedOutMessageContainer = document.querySelector('.ghm-offer-selector .logged-out-message-container');
         const memberPriceElement = document.querySelector('.ghm-offer-selector .member-price');
+
+        // Hide the Add to Cart button and logged out message initially
+        addToCartButton.style.display = 'none';
+        loggedOutMessageContainer.style.display = 'none';
 
         // Function to update prices when a radio button is selected
         function updatePrices(regularPrice, memberPrice) {
-            cartPriceElement.textContent = regularPrice;
-            memberPriceElement.textContent = memberPrice;
+            cartPriceElement.textContent = regularPrice ? regularPrice : '';
+            memberPriceElement.textContent = memberPrice ? memberPrice : '';
+
+            if (regularPrice) {
+                addToCartButton.style.display = 'inline-block';
+                loggedOutMessageContainer.style.display = 'block';
+            } else {
+                addToCartButton.style.display = 'none';
+                loggedOutMessageContainer.style.display = 'none';
+            }
         }
 
         // Add event listener for radio buttons to update prices and class
@@ -1461,9 +1492,14 @@ $this->end_controls_section();
             if (initialParentOption) {
                 initialParentOption.classList.add('selected');
             }
+        } else {
+            // If no option is checked, hide the add-to-cart button and logged out message container
+            updatePrices(null, null);
         }
     });
 </script>
+
+
 
 
 
