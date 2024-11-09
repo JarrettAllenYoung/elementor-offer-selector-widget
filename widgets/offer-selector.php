@@ -119,20 +119,15 @@ class Offer_Selector extends \Elementor\Widget_Base {
         );
 
 
+        // Add control for default selected variation (number select)
         $this->add_control(
             'default_selected_variation',
             [
                 'label' => __('Default Selected Variation', 'plugin-name'),
-                'type' => \Elementor\Controls_Manager::SELECT,
-                'options' => [
-                    'none' => __('None', 'plugin-name'),
-                    '0' => __('Variation 1', 'plugin-name'),
-                    '1' => __('Variation 2', 'plugin-name'),
-                    '2' => __('Variation 3', 'plugin-name'),
-                    // Add more options dynamically if needed
-                ],
-                'default' => 'none',
-                'description' => __('Select which variation should be selected by default when the page loads.', 'plugin-name'),
+                'type' => \Elementor\Controls_Manager::NUMBER,
+                'min' => 0,
+                'default' => 0,
+                'description' => __('Select which variation should be selected by default when the page loads. Use the index of the variation (0-based).', 'plugin-name'),
             ]
         );
 
@@ -1498,11 +1493,6 @@ $this->end_controls_section();
         }
     });
 </script>
-
-
-
-
-
 
         <?php
     }
