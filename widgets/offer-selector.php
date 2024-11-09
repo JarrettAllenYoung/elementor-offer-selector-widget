@@ -144,6 +144,19 @@ $this->start_controls_section(
     ]
 );
 
+// Background color for product-options container
+$this->add_control(
+    'product_options_background_color',
+    [
+        'label' => __('Product Options Background Color', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::COLOR,
+        'selectors' => [
+            '{{WRAPPER}} .product-options' => 'background-color: {{VALUE}};',
+        ],
+    ]
+);
+
+
 // Padding control for product-options container
 $this->add_responsive_control(
     'product_options_container_padding',
@@ -694,6 +707,18 @@ $this->start_controls_section(
     ]
 );
 
+// Color Control
+$this->add_control(
+    'member_price_color',
+    [
+        'label' => __('Color', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::COLOR,
+        'selectors' => [
+            '{{WRAPPER}} .member-price-message p' => 'color: {{VALUE}};',
+        ],
+    ]
+);
+
 // Typography Control
 $this->add_group_control(
     \Elementor\Group_Control_Typography::get_type(),
@@ -701,18 +726,6 @@ $this->add_group_control(
         'name' => 'member_price_typography',
         'label' => __('Typography', 'plugin-name'),
         'selector' => '{{WRAPPER}} .member-price-message p',
-    ]
-);
-
-// Color Control
-$this->add_control(
-    'member_price_color',
-    [
-        'label' => __('Text Color', 'plugin-name'),
-        'type' => \Elementor\Controls_Manager::COLOR,
-        'selectors' => [
-            '{{WRAPPER}} .member-price-message p' => 'color: {{VALUE}};',
-        ],
     ]
 );
 
@@ -912,6 +925,15 @@ $this->end_controls_section();
             ]
         );
 
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'button_typography',
+                'label' => __('Typography', 'plugin-name'),
+                'selector' => '{{WRAPPER}} .add-to-cart',
+            ]
+        );        
+
         $this->add_control(
             'button_text_color',
             [
@@ -998,6 +1020,74 @@ $this->start_controls_section(
     [
         'label' => __('Logged Out Message', 'plugin-name'),
         'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+    ]
+);
+
+$this->add_responsive_control(
+    'logged_out_message_margin',
+    [
+        'label' => __('Margin', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => ['px', '%', 'em'],
+        'selectors' => [
+            '{{WRAPPER}} .logged-out-message-container' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        ],
+    ]
+);
+
+$this->add_responsive_control(
+    'logged_out_message_padding',
+    [
+        'label' => __('Padding', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => ['px', '%', 'em'],
+        'selectors' => [
+            '{{WRAPPER}} .logged-out-message-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        ],
+    ]
+);
+
+$this->add_group_control(
+    \Elementor\Group_Control_Border::get_type(),
+    [
+        'name' => 'logged_out_message_border',
+        'label' => __('Border', 'plugin-name'),
+        'selector' => '{{WRAPPER}} .logged-out-message-container',
+    ]
+);
+
+$this->add_responsive_control(
+    'logged_out_message_border_width',
+    [
+        'label' => __('Border Width', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => ['px'],
+        'selectors' => [
+            '{{WRAPPER}} .logged-out-message-container' => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        ],
+    ]
+);
+
+$this->add_control(
+    'logged_out_message_border_color',
+    [
+        'label' => __('Border Color', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::COLOR,
+        'selectors' => [
+            '{{WRAPPER}} .logged-out-message-container' => 'border-color: {{VALUE}};',
+        ],
+    ]
+);
+
+$this->add_responsive_control(
+    'logged_out_message_border_radius',
+    [
+        'label' => __('Border Radius', 'plugin-name'),
+        'type' => \Elementor\Controls_Manager::DIMENSIONS,
+        'size_units' => ['px', '%'],
+        'selectors' => [
+            '{{WRAPPER}} .logged-out-message-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+        ],
     ]
 );
 
