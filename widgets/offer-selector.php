@@ -1465,9 +1465,6 @@ $this->end_controls_section();
     });
 </script>
 
-
-
-
         <?php
     }
 
